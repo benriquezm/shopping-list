@@ -3,12 +3,11 @@ const httpStatus = require('http-status')
 
 const app = require('./server')
 
-// connect to mongo db
 mongoose.connection.openUri(process.env.MONGODB_URI, {
   autoIndex: true,
-  poolSize: 50,
-  bufferMaxEntries: 0,
-  keepAlive: 120,
+  maxPoolSize: 50,
+  //  bufferMaxEntries: 0,
+  // keepAlive: 120,
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -16,10 +15,8 @@ mongoose.connection.openUri(process.env.MONGODB_URI, {
 mongoose.connection.on('connected', () => console.info('Mongoose connected.'));
 
 mongoose.connection.on('error', (err) => {
-  throw new APIError(
-    `Mongoose connection error: ${err}`,
-    httpStatus.INTERNAL_SERVER_ERROR
-  );
+  console.error(`Mongoose connection error: ${err}`,
+  httpStatus.INTERNAL_SERVER_ERROR);
 });
 
 mongoose.connection.on('disconnected', () =>
@@ -27,8 +24,8 @@ mongoose.connection.on('disconnected', () =>
 );
 
 // listen on port config.port
-app.listen(process.env.PORT, () => {
+/*app.listen(process.env.PORT, () => {
   console.info(`Succesfully server started on port ${process.env.PORT} (${process.env.NODE_ENV}).`);
-});
+});*/
 
 module.exports = app;
