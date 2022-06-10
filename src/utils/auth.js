@@ -1,9 +1,9 @@
 const jwt = require('jsonwebtoken');
 
-const createJWToken = (user) => {
+const createJWTToken = (user) => {
     return jwt.sign({user}, 'shoppingList1574', {
         expiresIn: '1d'
     });
 };
 
-module.exports = { createJWToken };
+module.exports = { createJWTToken };
