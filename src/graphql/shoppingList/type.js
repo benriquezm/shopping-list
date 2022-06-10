@@ -18,3 +18,23 @@ module.exports = gql`
         ): Product
     }
 `;
+
+const {
+    GraphQLObjectType,
+    GraphQLID,
+    GraphQLString,
+    GraphQLInt,
+} = require('graphql');
+
+const ShoppingListType = new GraphQLObjectType({
+    name: "ShoppingList",
+    description: "ShoppingList Type",
+    fields: () => ({
+        id: { type: GraphQLID },
+        productName: { type: GraphQLString },
+        quantity: { type: GraphQLInt },
+        position: { type: GraphQLInt }
+    })
+});
+
+module.exports = { ShoppingListType };
